@@ -1,0 +1,15 @@
+{
+  "name": "refmap",
+  "type": "module",
+  "version": "0.1.0",
+  "description": "A polyfill for the RefMap ES proposal",
+  "main": "refmap.js",
+  "scripts": {
+    "test": "node ./refmap.t.js"
+  },
+  "author": "Robin Ricard <rricard2@bloomberg.net>",
+  "license": "BSD-3-Clause",
+  "devDependencies": {
+    "tape": "^4.13.0"
+  }
+}
