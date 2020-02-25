@@ -10,16 +10,24 @@ export default class RefMap {
     /**
      * Creates an object reference tracked by the reference map
      * @param {Object} objectReference The object to be referenced
-     * @returns {unique symbol} A symbol representing the ref to the object
+     * @param {symbol} [newSymbol] Optional symbol to use if the object is not
+     *      in the RefMap already. The function will throw if that symbol is
+     *      already referencing an object in the RefMap. If the object is
+     *      alread
+     * @returns {symbol} A symbol representing the ref to the object
      */
-    ref(objectReference) {
+    ref(objectReference, newSymbol = Symbol()) {
         if (this._objMap.has(objectReference)) {
             return this._objMap.get(objectReference);
         }
-        const refSymbol = Symbol();
-        this._symbolMap.set(refSymbol, objectReference);
-        this._objMap.set(objectReference, refSymbol);
-        return refSymbol;
+        if (this._symbolMap.has(newSymbol)) {
+            throw new TypeError(
+                `${String(newSymbol)} already refers to an object`
+            );
+        }
+        this._symbolMap.set(newSymbol, objectReference);
+        this._objMap.set(objectReference, newSymbol);
+        return newSymbol;
     }
 
     /**

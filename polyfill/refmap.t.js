@@ -77,6 +77,73 @@ test("multiple refs are different for different objects", t => {
     }
 });
 
+test("uses provided symbol", t => {
+    t.plan(2);
+
+    const refmap = new RefMap();
+    const obj = {};
+    const ref0 = Symbol("ref0");
+    const ref1 = refmap.ref(obj, ref0);
+    const ref2 = refmap.ref(obj);
+
+    t.equal(
+        ref1,
+        ref0,
+        "refmap.ref uses the provided symbol"
+    );
+    t.equal(
+        ref1,
+        ref2,
+        "a ref for the same object returns the same ref"
+    );
+});
+
+test("ignores provided symbol", t => {
+    t.plan(2);
+
+    const refmap = new RefMap();
+    const obj = {};
+    const ref0 = Symbol("ref0");
+    const ref1 = refmap.ref(obj);
+    const ref2 = refmap.ref(obj, ref0);
+
+    t.notEqual(
+        ref2,
+        ref0,
+        "refmap.ref avoids the provided symbol if it wasn't there at first"
+    );
+    t.equal(
+        ref1,
+        ref2,
+        "a ref for the same object returns the same ref"
+    );
+});
+
+test("crashes if reusing an existing symbol", t => {
+    t.plan(1);
+
+    const refmap = new RefMap();
+    const ref = refmap.ref({});
+    t.throws(() => {
+        refmap.ref({}, ref);
+    }, "throws when reusing an existing ref in the RefMap");
+});
+
+test("does not crash if given consistenly the same ref", t => {
+    t.plan(1);
+
+    const refmap = new RefMap();
+    const obj ={};
+    const ref1 = refmap.ref(obj);
+    const ref2 = refmap.ref(obj, ref1);
+    
+    t.equal(
+        ref1,
+        ref2,
+        "a ref for the same object returns the same ref"
+    );
+});
+
 test("POLYFILL_ONLY_releaseRef", t => {
     t.plan(2);
 
