@@ -70,11 +70,11 @@ refm.deref(vdom.children[0].props.onClick).call();
 
 Creates a `RefMap`. Does not takes any initializer arguments.
 
-## `RefMap.prototype.ref(obj)`
+## `RefMap.prototype.ref(obj, sym = Symbol())`
 
 Returns a stable `symbol` for a corresponding object `obj`.
 
-> _Note_: The user does not get to choose which symbol gets created.
+You can optionally give a symbol `sym` that will be used if a new symbol needs to get registered. If the `obj` is already in the RefMap, `sym` will get discarded. If `sym` is already pointing to an object in the refmap, expect a `TypeError`.
 
 ## `RefMap.prototype.deref(sym)`
 
