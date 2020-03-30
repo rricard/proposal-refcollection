@@ -28,19 +28,19 @@ The RefCollection is able to release objects from memory automatically.
 # Examples
 
 ```js
-const refm = new RefCollection();
+const refc = new RefCollection();
 
-const rootRef = refm.ref(document.getElementById("root"));
-assert(refm.deref(rootRef) === document.querySelector("#root"));
+const rootRef = refc.ref(document.getElementById("root"));
+assert(refc.deref(rootRef) === document.querySelector("#root"));
 
-const otherRootRef = refm.ref(document.querySelector("#root"));
+const otherRootRef = refc.ref(document.querySelector("#root"));
 assert(rootRef === otherRootRef);
 ```
 
 ## _with [Records and Tuples][rt]_
 
 ```js
-const refm = new RefCollection();
+const refc = new RefCollection();
 
 const vdom = #{
     type: "div",
@@ -49,7 +49,7 @@ const vdom = #{
         #{
             type: "button",
             props: #{
-                onClick: refm.ref(function () {
+                onClick: refc.ref(function () {
                     alert("Clicked!");
                 }),
             },
@@ -60,7 +60,7 @@ const vdom = #{
     ],
 };
 
-refm.deref(vdom.children[0].props.onClick).call();
+refc.deref(vdom.children[0].props.onClick).call();
 // Alert: Clicked!
 ```
 
@@ -99,4 +99,4 @@ Additionally, if references are not being tracked anymore by the engine, they wi
 You will find a [polyfill in this same repository][poly].
 
 [rt]: https://github.com/tc39/proposal-record-tuple
-[poly]: ./polyfill/refCollection.js
+[poly]: ./polyfill/refmap.js
