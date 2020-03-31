@@ -105,4 +105,4 @@ You will find a [polyfill in this same repository][poly].
 Symbols are a good way to represent that reference since we can't reforge them to recreate a ref from nothing (which a number or a string would have been possible to forge). 
 
 [rt]: https://github.com/tc39/proposal-record-tuple
-[poly]: ./polyfill/refmap.js
+[poly]: ./polyfill/refcoll.js

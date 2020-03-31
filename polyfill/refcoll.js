@@ -3,7 +3,7 @@
 /**
  * RefMap Polyfill that will leak the references.
  */
-export default class RefMap {
+export default class RefCollection {
     _symbolMap = new Map();
     _objMap = new Map();
 

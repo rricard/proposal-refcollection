@@ -5,7 +5,7 @@
   "description": "A polyfill for the RefMap ES proposal",
   "main": "refmap.js",
   "scripts": {
-    "test": "node ./refmap.t.js"
+    "test": "node ./refcoll.t.js"
   },
   "author": "Robin Ricard <rricard2@bloomberg.net>",
   "license": "BSD-3-Clause",
