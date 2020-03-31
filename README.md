@@ -19,11 +19,11 @@ ECMAScript proposal for the RefCollection.
 
 # Overview
 
-The RefCollection introduces a way to keep value references to objects.
+The RefCollection introduces a way to keep value references to objects through symbols.
 
 One of its main goals is to be able to keep track of objects in [Records and Tuples][rt] without introducing anything mutable in them.
 
-The RefCollection is able to release objects from memory automatically.
+The RefCollection is able to automatically track symbols in such a way that when they become unreachable (and since symbols can't be forged) the referenced object can become unreachable as well.
 
 # Examples
 
@@ -84,7 +84,7 @@ Returns the object corresponding to the symbol `sym`. If a `symbol` not returned
 
 ## Object-Ref stability
 
-For a same object, expect the same ref symbol.
+The collection does not let you change or remove from it, only add. So for a same object, expect the same ref symbol.
 
 ## Memory release
 
@@ -97,6 +97,12 @@ Additionally, if references are not being tracked anymore by the engine, they wi
 # Polyfill
 
 You will find a [polyfill in this same repository][poly].
+
+# FAQ
+
+## Why Symbols?
+
+Symbols are a good way to represent that reference since we can't reforge them to recreate a ref from nothing (which a number or a string would have been possible to forge). 
 
 [rt]: https://github.com/tc39/proposal-record-tuple
 [poly]: ./polyfill/refmap.js
