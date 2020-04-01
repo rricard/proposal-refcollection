@@ -86,11 +86,11 @@ Returns the object corresponding to the symbol `sym`. If a `symbol` not returned
 
 The collection does not let you change or remove from it, only add. So for a same object, expect the same ref symbol.
 
-## Memory release
+## Unreachability
 
-The `RefCollection` will release all object refs if it gets released itself.
+The `RefCollection` will mark all objects tracked as unreachable as soon as the collection becomes unreachable.
 
-Additionally, if references are not being tracked anymore by the engine, they will also release the corresponding object.
+If a symbol becomes independently unreachable, since they can't be reforged, the collection will mark the corresponding object as unreachable from the collection.
 
 > _Note_: This second point is impossible to polyfill.
 
